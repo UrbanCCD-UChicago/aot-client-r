@@ -1,13 +1,13 @@
 Package: AotClient
 Type: Package
-Title: Official Array of Things API Client
+Title: Official 'Array of Things' API Client
 Version: 0.1.0
 Date: 2018-11-09
 Authors@R: person("Vince", "Forgione", email = "vforgione@uchicago.edu",
                   role = c("aut", "cre"))
 Maintainer: "Vince Forgione" <vforgione@uchicago.edu>
-Description: The library serves as the official R client 
-    for the Array of Things API <http://arrayofthings.github.io>. 
+Description: The library serves as the official client 
+    for the 'Array of Things' API <http://arrayofthings.github.io>. 
     It allows users to list available node and get detailed 
     statistics for each node.
 License: Apache License 2.0
