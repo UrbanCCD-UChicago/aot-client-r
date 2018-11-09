@@ -19,6 +19,7 @@ log_msg <- function (msg) {
 #' @param url - The URL to send the request to
 #' @param filters - A list of tuples to build filters/query params
 #' @return The entire response
+#' @importFrom httr GET
 #' @noRd
 send_request <- function (url, filters = NULL) {
   # send request; get response
@@ -48,6 +49,7 @@ send_request <- function (url, filters = NULL) {
 #'
 #' @param resp - The response object
 #' @return The parsed JSON body
+#' @importFrom jsonlite fromJSON
 #' @noRd
 parse_content <- function (resp) {
   content <- httr::content(resp, as="text")
