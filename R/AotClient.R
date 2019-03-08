@@ -31,9 +31,9 @@ send_request <- function (url, filters = NULL) {
 
   # if not 200, log error
   if (resp$status_code != 200) {
-    msg <- paste("Error in httr GET:", rep$status_code, rep$headers$statusmessage, url)
-    if(!is.null(rep$headers$`content-length`) && (rep$headers$`content-length` > 0)) {
-      details <- httr::content(rep)
+    msg <- paste("Error in httr GET:", resp$status_code, resp$headers$statusmessage, url)
+    if(!is.null(resp$headers$`content-length`) && (resp$headers$`content-length` > 0)) {
+      details <- httr::content(resp)
       msg <- paste(msg, details)
     }
     log_msg(msg)
@@ -96,8 +96,6 @@ ls.projects <- function (filters = NULL) {
   df <- as.data.frame.list(data)
   attr(df, "name") <- data$name
   attr(df, "slug") <- data$slug
-  # attr(df, "first_observation") <- as.POSIXlt(data$first_observation)
-  # attr(df, "latest_observation") <- as.POSIXlt(data$latest_observation)
   attr(df, "hull") <- data$hull
 
   # return data frame
@@ -142,10 +140,8 @@ ls.nodes <- function (filters = NULL) {
   df <- as.data.frame.list(data)
   attr(df, "vsn") <- data$vsn
   attr(df, "location") <- data$location
-  attr(df, "human_address") <- data$human_address
+  attr(df, "address") <- data$human_address
   attr(df, "description") <- data$description
-  attr(df, "commissioned_on") <- as.POSIXlt(data$commissioned_on)
-  attr(df, "decommissioned_on") <- as.POSIXlt(data$decommissioned_on)
 
   # return data frame
   return(df)
@@ -189,9 +185,6 @@ ls.sensors <- function (filters = NULL) {
   data <- parse_content(resp)
   df <- as.data.frame.list(data)
   attr(df, "path") <- data$path
-  attr(df, "subsystem") <- data$subsystem
-  attr(df, "sensor") <- data$sensor
-  attr(df, "parameter") <- data$parameter
   attr(df, "uom") <- data$uom
   attr(df, "min") <- data$min
   attr(df, "max") <- data$max
@@ -242,37 +235,9 @@ ls.observations <- function (filters = NULL) {
   attr(df, "sensor_path") <- data$sensor_path
   attr(df, "timestamp") <- as.POSIXlt(data$timestamp)
   attr(df, "value") <- data$value
+  attr(df, "uom") <- data$uom
+  attr(df, "location") <- data$location
 
   # return data frame
   return(df)
 }
-
-
-#' Gets a data frame of `raw observations` data.
-#'
-#' Raw observation data are the environmental measurements made
-#' by the sensors. Data listed here can be both tuned and not-yet
-#' tuned data. The values of `raw` are the analog readings made by
-#' the sensor; `hrf` (human readable format) are the clean/trusted
-#' values -- these are typically null.
-#'
-#' @param filters - A list of tuples to create filters/query params
-#' @return A data frame of project metadata
-#' @export
-#ls.raw_observations <- function (filters = NULL) {
-#  # build url, send request, get response
-#  url <- "https://api.arrayofthings.org/api/raw-observations"
-#  resp <- send_request(url, filters)
-#
-#  # build data frame
-#  data <- parse_content(resp)
-#  df <- as.data.frame.list(data)
-#  attr(df, "node_vsn") <- data$node_vsn
-#  attr(df, "sensor_path") <- data$sensor_path
-#  attr(df, "timestamp") <- as.POSIXlt(data$timestamp)
-#  attr(df, "hrf") <- data$hrf
-#  attr(df, "raw") <- data$raw
-#
-#  # return data frame
-#  return(df)
-#}
