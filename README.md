@@ -18,7 +18,6 @@ to work with the list endpoints, and stat is for details:
 - `ls.nodes` to get a list of nodes
 - `ls.sensors` to get a list of sensors
 - `ls.observations` to get the observation data
-- `ls.raw_observations` to get the raw observation data
 - `stat.project` to get details for a single project
 - `stat.node` to get details for a single node
 - `stat.sensor` to get details for a single sensor
@@ -30,14 +29,11 @@ All of the functions allow you to add arbitrary filters/parameters as well:
 
 ```R
 # sensors onboard node 004
-df <- ls.sensors(filters=list(onboard_node="004"))
+df <- ls.sensors(filters=list(node="004"))
 
-# note: this doesn't work quite right but it will soon
-# average temperature observations made in august per node
 df <- ls.observations(filters=list(
-  by_sensor="metsense.bmp180.temperature",
-  timestamp="ge:2018-08-01T00:00:00",
-  timestamp="lt:2018-09-01T00:00:00",
-  value="avg:node_vsn"
+  sensor="metsense.bmp180.temperature",
+  timestamp="ge:2018-08-01T00:00:00", # note that the api only contains the past week's data
+  timestamp="lt:2018-09-01T00:00:00"  # so your filters will be for obviously later dates here.
 ))
 ```
