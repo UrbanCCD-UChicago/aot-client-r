@@ -96,8 +96,8 @@ ls.projects <- function (filters = NULL) {
   df <- as.data.frame.list(data)
   attr(df, "name") <- data$name
   attr(df, "slug") <- data$slug
-  attr(df, "first_observation") <- as.POSIXlt(data$first_observation)
-  attr(df, "latest_observation") <- as.POSIXlt(data$latest_observation)
+  # attr(df, "first_observation") <- as.POSIXlt(data$first_observation)
+  # attr(df, "latest_observation") <- as.POSIXlt(data$latest_observation)
   attr(df, "hull") <- data$hull
 
   # return data frame
@@ -259,20 +259,20 @@ ls.observations <- function (filters = NULL) {
 #' @param filters - A list of tuples to create filters/query params
 #' @return A data frame of project metadata
 #' @export
-ls.raw_observations <- function (filters = NULL) {
-  # build url, send request, get response
-  url <- "https://api.arrayofthings.org/api/raw-observations"
-  resp <- send_request(url, filters)
-
-  # build data frame
-  data <- parse_content(resp)
-  df <- as.data.frame.list(data)
-  attr(df, "node_vsn") <- data$node_vsn
-  attr(df, "sensor_path") <- data$sensor_path
-  attr(df, "timestamp") <- as.POSIXlt(data$timestamp)
-  attr(df, "hrf") <- data$hrf
-  attr(df, "raw") <- data$raw
-
-  # return data frame
-  return(df)
-}
+#ls.raw_observations <- function (filters = NULL) {
+#  # build url, send request, get response
+#  url <- "https://api.arrayofthings.org/api/raw-observations"
+#  resp <- send_request(url, filters)
+#
+#  # build data frame
+#  data <- parse_content(resp)
+#  df <- as.data.frame.list(data)
+#  attr(df, "node_vsn") <- data$node_vsn
+#  attr(df, "sensor_path") <- data$sensor_path
+#  attr(df, "timestamp") <- as.POSIXlt(data$timestamp)
+#  attr(df, "hrf") <- data$hrf
+#  attr(df, "raw") <- data$raw
+#
+#  # return data frame
+#  return(df)
+#}
