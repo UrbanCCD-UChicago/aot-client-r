@@ -8,7 +8,7 @@ This isn't listed with CRAN yet (because it's awful -- I'm not an R developer). 
 from GitHub though:
 
 ```R
-devtools::install_github("UbranCCD-UChicago/aot-client-r")
+devtools::install_github("UrbanCCD-UChicago/aot-client-r")
 ```
 
 There are two general types of functions presented: _ls_ and _stat_. You should use the ls functions
